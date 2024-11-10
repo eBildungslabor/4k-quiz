@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="css/pico.min.css">
+    <title>Reflexion zu den 4K-Kompetenzen</title>
+    <script>
+        // Liste aller Szenarien und zugehörige richtige 4K-Kompetenzen
+        const szenarien = [
+            { text: "Im Deutschunterricht arbeiten die Schüler an einem Projekt, bei dem sie ein eigenes Gedicht vortragen. Sie lernen, ihren Standpunkt klar und verständlich auszudrücken.", kompetenz: 1 },
+            { text: "Im Mathematikunterricht sollen die Schüler ihre Lösungswege präsentieren und dabei auch Rückfragen ihrer Mitschüler beantworten.", kompetenz: 1 },
+            { text: "Im Geschichtsunterricht führen Schüler eine Debatte über die Auswirkungen der Industrialisierung. Sie lernen, ihre Argumente zu kommunizieren und auf andere Meinungen einzugehen.", kompetenz: 1 },
+            { text: "Im Kunstunterricht arbeiten die Schüler an einem gemeinsamen Mosaik-Projekt. Jeder übernimmt eine eigene Aufgabe, und die Gruppe trägt die Verantwortung für das Endergebnis.", kompetenz: 2 },
+            { text: "Im Biologieunterricht diskutieren die Schüler in Kleingruppen über die Nutzung von Gentechnik. Gemeinsam wägen sie verschiedene Perspektiven ab und tragen Verantwortung für die Gruppenentscheidung.", kompetenz: 2 },
+            { text: "Im Sportunterricht erarbeiten die Schüler in Teams ein Aufwärmprogramm und tragen Verantwortung für die Planung und Durchführung.", kompetenz: 2 },
+            { text: "Im Informatikunterricht entwerfen die Schüler eine App zur Lösung eines lokalen Umweltproblems. Sie finden neue, kreative Lösungen und testen diese gemeinsam.", kompetenz: 3 },
+            { text: "Im Musikunterricht improvisieren die Schüler ein Musikstück. Sie sollen ihre Kreativität nutzen, um eine harmonische Melodie zu schaffen.", kompetenz: 3 },
+            { text: "Im Physikunterricht werden die Schüler herausgefordert, ein Experiment mit alltäglichen Materialien neu zu gestalten, um physikalische Prinzipien kreativ zu untersuchen.", kompetenz: 3 },
+            { text: "Im Sozialkundeunterricht analysieren die Schüler verschiedene Medienberichte kritisch und hinterfragen deren Glaubwürdigkeit.", kompetenz: 4 },
+            { text: "Im Politikunterricht sollen die Schüler eine Rede analysieren und bewerten, ob die Argumente überzeugend und kritisch hinterfragt wurden.", kompetenz: 4 },
+            { text: "Im Ethikunterricht reflektieren die Schüler ihre persönlichen Überzeugungen und diskutieren kritisch, ohne bloß andere Meinungen nachzuplappern.", kompetenz: 4 }
+        ];
+
+        // Liste der 4K-Kompetenzen und Beschreibungen
+        const kompetenzen = [
+            { nummer: 1, name: "Kommunikation", beschreibung: "Gelerntes oder Gedachtes klar und verständlich mitteilen zu können." },
+            { nummer: 2, name: "Kollaboration", beschreibung: "Zusammenarbeit mit gemeinsamer Verantwortung und aktiver Beteiligung aller Teammitglieder." },
+            { nummer: 3, name: "Kreativität", beschreibung: "Neue Lösungen und Ideen entwickeln, um auf Herausforderungen innovativ zu reagieren." },
+            { nummer: 4, name: "Kritisches Denken", beschreibung: "Selbstständig reflektieren und denken, statt bloß andere Meinungen nachzuplappern." }
+        ];
+
+        let aktuellesSzenario = null;
+
+        // Funktion, um ein neues Szenario zu generieren
+        function neuesSzenario() {
+            aktuellesSzenario = szenarien[Math.floor(Math.random() * szenarien.length)];
+            document.getElementById('article').innerText = aktuellesSzenario.text;
+            document.getElementById('antwort').innerHTML = '';  // Antwort zurücksetzen
+            document.getElementById('neues-szenario-btn').style.display = 'none'; // Verstecke den "Nächstes Szenario"-Button
+        }
+
+        // Funktion, um die gewählte 4K-Kompetenz zu überprüfen
+        function kompetenzUeberpruefen() {
+            const gewahlteKompetenz = parseInt(document.getElementById('kompetenz-auswahl').value); // Parse als Integer
+            const richtigeKompetenz = kompetenzen.find(k => k.nummer === aktuellesSzenario.kompetenz);
+            const gewahlte = kompetenzen.find(k => k.nummer === gewahlteKompetenz);
+
+            let antwortText = '';
+            if (gewahlteKompetenz === aktuellesSzenario.kompetenz) {
+                antwortText = `Ja, das passt gut. Bei der Kompetenz '${richtigeKompetenz.name}' geht es darum, ${richtigeKompetenz.beschreibung}`;
+            } else {
+                antwortText = `Das könnte auch passen. Alternativ wäre auch die Kompetenz '${richtigeKompetenz.name}' denkbar. Hier geht es darum, ${richtigeKompetenz.beschreibung}`;
+            }
+
+            document.getElementById('antwort').innerHTML = antwortText;
+            document.getElementById('neues-szenario-btn').style.display = 'block'; // Zeige den "Nächstes Szenario"-Button
+        }
+    </script>
+</head>
+
+<body onload="neuesSzenario()">
+
+    <main class="container">
+        <h1>Zu welcher der 4K-Kompetenzen passt das folgende fiktive pädagogische Szenario und wie könnte es in deinen Bereich übertragen werden?</h1>
+        <p>Die Beispiele zeigen positive und negative Ausprägungen. Ziel ist die Reflexion der unterschiedlichen 4K-Kompetenzen.</p>
+        <article id="article">
+            <!-- Hier wird ein zufällig ausgewähltes Szenario angezeigt -->
+        </article>
+
+        <label for="kompetenz-auswahl">Wähle eine Kompetenz:</label>
+        <select id="kompetenz-auswahl">
+            <option value="" selected disabled>Bitte wählen</option> <!-- Standardmäßig wird diese Option angezeigt -->
+            <option value="1">Kommunikation</option>
+            <option value="2">Kollaboration</option>
+            <option value="3">Kreativität</option>
+            <option value="4">Kritisches Denken</option>
+        </select>
+
+        <button onclick="kompetenzUeberpruefen()">Überprüfen</button>
+
+        <div id="antwort">
+            <!-- Hier wird die Rückmeldung angezeigt -->
+        </div>
+        <p><hr></p>
+        <button id="neues-szenario-btn" onclick="neuesSzenario()" style="display:none;">Nächstes Szenario</button>
+
+    </main>
+
+    <footer class="container">
+        <small>Erstellt für die bundesweite Fortbildungstagung der Bereichslehrkräfte und Circuslehrkräfte (18.-20. November 2024 in Potsdam) von <a href="https://ebildungslabor.de">Nele Hirsch (ebildungslabor)</a> • Lizenz: <a href="https://creativecommons.org/publicdomain/zero/1.0/deed.de">CC0 1.0</a></small>
+    </footer>
+
+</body>
+
+</html>
